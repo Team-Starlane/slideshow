@@ -28,6 +28,9 @@
 #include <jo/jo.h>
 #define IMG_MAX 11
 int spriteIndex = 0;
+char filenames[12][7] ={"\00.TGA", "\01.TGA", "\02.TGA", "\03.TGA", "\04.TGA", "\05.TGA", "\06.TGA", "\07.TGA", "\08.TGA", "\09.TGA", "\10.TGA", "\11.TGA"};
+jo_img      bg;
+
 
 void            my_input()
 {
@@ -57,7 +60,7 @@ void			my_draw(void)
 	/* Very usefull for debuging purpose see also jo/tools.h
 	jo_printf(0, 0, jo_get_last_error());*/
 
-    jo_tga_loader(&bg, JO_ROOT_DIR, filenames[spriteIndex], JO_COLOR_Transparent);
+    //jo_tga_loader(&bg, JO_ROOT_DIR, filenames[spriteIndex], JO_COLOR_Transparent);
 
 	//jo_clear_background();
     //jo_move_background(); 
@@ -66,10 +69,9 @@ void			my_draw(void)
 
 void            my_background()
 {
-    jo_img      bg;
-    char filenames[12][6] ={{"00.TGA"}, {"01.TGA"}, {"02.TGA"}, {"03.TGA"}, {"04.TGA"}, {"05.TGA"}, {"06.TGA"}, {"07.TGA"}, {"08.TGA"}, {"09.TGA"}, {"10.TGA"}, {"11.TGA"}};
-    //char filename[6] = "'00.TGA', '01.TGA', '02.TGA', 03.TGA, 04";
 
+    //char filename[6] = "'00.TGA', '01.TGA', '02.TGA', 03.TGA, 04";
+    
     bg.data = NULL;
     jo_tga_loader(&bg, JO_ROOT_DIR, filenames[spriteIndex], JO_COLOR_Transparent);
     jo_set_background_sprite(&bg, 0, 0);
