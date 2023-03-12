@@ -30,8 +30,6 @@
 int spriteIndex = 0;
 char filenames[12][8] ={"00.TGA", "01.TGA", "2.TGA", "3.TGA", "4.TGA", "5.TGA", "6.TGA", "7.TGA", "8.TGA", "9.TGA", "\10.TGA", "\11.TGA"};
 
-
-
 void            my_input()
 {
     if (jo_is_pad1_key_down(JO_KEY_R) && spriteIndex < IMG_MAX)
@@ -51,10 +49,7 @@ void            my_input()
         {
             spriteIndex = IMG_MAX;
         }
-
-    
 }
-
 
 void            my_background()
 {
@@ -66,16 +61,21 @@ void            my_background()
     jo_tga_loader(&bg, JO_ROOT_DIR, filenames[spriteIndex], JO_COLOR_Transparent);
     jo_set_background_sprite(&bg, 0, 0);
     jo_free_img(&bg);
-    jo_clear_screen_line(2);
-    jo_printf(0, 2, "%d", spriteIndex);
 }
+
+void           my_draw(void)
+    {
+        jo_printf(0, 0, "Sprite Index:");
+        jo_clear_screen_line(1);
+        jo_printf(0, 1, "%d", spriteIndex);
+    }
 
 void			jo_main(void)
 {
 	jo_core_init(JO_COLOR_Black);
     my_background();
     jo_core_add_callback(my_input);
-	//jo_core_add_callback(my_draw);
+	jo_core_add_callback(my_draw);
 	jo_core_run();
 }
 
