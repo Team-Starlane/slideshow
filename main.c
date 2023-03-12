@@ -29,10 +29,12 @@
 
 void			my_draw(void)
 {
-	/* Very usefull for debuging purpose see also jo/tools.h */
-	jo_printf(0, 0, jo_get_last_error());
+	/* Very usefull for debuging purpose see also jo/tools.h
+	jo_printf(0, 0, jo_get_last_error());*/
 
-	/* See also: jo_clear_background(), jo_move_background(), jo_zoom_background()*/
+	jo_clear_background();
+    jo_move_background(); 
+    jo_zoom_background();
 }
 
 void            my_background()
@@ -40,7 +42,7 @@ void            my_background()
     jo_img      bg;
 
     bg.data = NULL;
-    jo_tga_loader(&bg, "BG", "BG.TGA", JO_COLOR_Transparent);
+    jo_tga_loader(&bg, JO_CORE_ROOT, "BG.TGA", JO_COLOR_Transparent);
     jo_set_background_sprite(&bg, 0, 0);
     jo_free_img(&bg);
 }
