@@ -28,7 +28,7 @@
 #include <jo/jo.h>
 #define IMG_MAX 11
 int spriteIndex = 0;
-char filenames[12][8] ={"00.TGA", "01.TGA", "2.TGA", "3.TGA", "4.TGA", "5.TGA", "6.TGA", "7.TGA", "8.TGA", "9.TGA", "\10.TGA", "\11.TGA"};
+char filenames[12][6] ={"00.TGA", "01.TGA", "2.TGA", "3.TGA", "4.TGA", "5.TGA", "6.TGA", "7.TGA", "8.TGA", "9.TGA", "10.TGA", "11.TGA"};
 
 void            my_input()
 {
