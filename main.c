@@ -28,7 +28,7 @@
 #include <jo/jo.h>
 #define IMG_MAX 11
 int spriteIndex = 0;
-char filenames[12][8] ={"\00.TGA\0", "\01.TGA\0", "\02.TGA\0", "\03.TGA\0", "\04.TGA\0", "\05.TGA\0", "\06.TGA\0", "\07.TGA\0", "\08.TGA\0", "\09.TGA\0", "\10.TGA\0", "\11.TGA\0"};
+char filenames[12][8] ={"00.tga\0", "01.tga\0", "\02.tga\0", "\03.tga\0", "\04.tga\0", "\05.tga\0", "\06.tga\0", "\07.tga\0", "\08.tga\0", "\09.tga\0", "\10.tga\0", "\11.tga\0"};
 jo_img      bg;
 
 
@@ -70,9 +70,10 @@ void			my_draw(void)
 void            my_background()
 {
 
-    //char filename[6] = "'00.TGA', '01.TGA', '02.TGA', 03.TGA, 04";
+    //char filename[6] = "'00.tga', '01.tga', '02.tga', 03.tga, 04";
     
     bg.data = NULL;
+    //jo_tga_loader(&bg, JO_ROOT_DIR, filenames[spriteIndex], JO_COLOR_Transparent);
     jo_tga_loader(&bg, JO_ROOT_DIR, filenames[spriteIndex], JO_COLOR_Transparent);
     jo_set_background_sprite(&bg, 0, 0);
     jo_free_img(&bg);
