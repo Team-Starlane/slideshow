@@ -26,23 +26,52 @@
 ** SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 #include <jo/jo.h>
+#define IMG_MAX 11
+int spriteIndex = 0;
+
+void            my_input()
+{
+    if (jo_is_pad1_key_down(JO_KEY_R) && spriteIndex < IMG_MAX)
+        {
+            spriteIndex++;
+        }
+    else if (jo_is_pad1_key_down(JO_KEY_R) && spriteIndex >= IMG_MAX)
+        {
+            spriteIndex = 0;
+        }
+
+    if (jo_is_pad1_key_down(JO_KEY_L) && spriteIndex > 0)
+        {
+            spriteIndex--;
+        }
+    else if (jo_is_pad1_key_down(JO_KEY_L) && spriteIndex <= 0)
+        {
+            spriteIndex = IMG_MAX;
+        }
+
+    
+}
 
 void			my_draw(void)
 {
 	/* Very usefull for debuging purpose see also jo/tools.h
 	jo_printf(0, 0, jo_get_last_error());*/
 
-	jo_clear_background();
-    jo_move_background(); 
-    jo_zoom_background();
+    jo_tga_loader(&bg, JO_ROOT_DIR, filenames[spriteIndex], JO_COLOR_Transparent);
+
+	//jo_clear_background();
+    //jo_move_background(); 
+    //jo_zoom_background();
 }
 
 void            my_background()
 {
     jo_img      bg;
+    char filenames[12][6] ={{"00.TGA"}, {"01.TGA"}, {"02.TGA"}, {"03.TGA"}, {"04.TGA"}, {"05.TGA"}, {"06.TGA"}, {"07.TGA"}, {"08.TGA"}, {"09.TGA"}, {"10.TGA"}, {"11.TGA"}};
+    //char filename[6] = "'00.TGA', '01.TGA', '02.TGA', 03.TGA, 04";
 
     bg.data = NULL;
-    jo_tga_loader(&bg, JO_CORE_ROOT, "BG.TGA", JO_COLOR_Transparent);
+    jo_tga_loader(&bg, JO_ROOT_DIR, filenames[spriteIndex], JO_COLOR_Transparent);
     jo_set_background_sprite(&bg, 0, 0);
     jo_free_img(&bg);
 }
@@ -51,6 +80,7 @@ void			jo_main(void)
 {
 	jo_core_init(JO_COLOR_Black);
     my_background();
+    jo_core_add_callback(my_input);
 	jo_core_add_callback(my_draw);
 	jo_core_run();
 }
