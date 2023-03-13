@@ -28,7 +28,8 @@
 #include <jo/jo.h>
 #define IMG_MAX 1
 int spriteIndex = 0;
-char filenames[12][8] ={"00.TGA", "01.TGA", "02.TGA", "03.TGA", "04.TGA", "05.TGA", "06.TGA", "07.TGA", "08.TGA", "09.TGA", "10.TGA", "11.TGA"};
+char * filenames[] = {"00.TGA", "01.TGA", "02.TGA", "03.TGA", "04.TGA", "05.TGA", "06.TGA", "07.TGA", "08.TGA", "09.TGA", "10.TGA", "11.TGA"};
+// char filenames[12][8] ={"00.TGA", "01.TGA", "02.TGA", "03.TGA", "04.TGA", "05.TGA", "06.TGA", "07.TGA", "08.TGA", "09.TGA", "10.TGA", "11.TGA"};
 jo_img      bg;
 
 void            my_input()
@@ -36,19 +37,23 @@ void            my_input()
     if (jo_is_pad1_key_down(JO_KEY_R) && spriteIndex < IMG_MAX)
         {
             spriteIndex++;
+            my_background();
         }
     else if (jo_is_pad1_key_down(JO_KEY_R) && spriteIndex >= IMG_MAX)
         {
             spriteIndex = 0;
+            my_background();
         }
 
     if (jo_is_pad1_key_down(JO_KEY_L) && spriteIndex > 0)
         {
             spriteIndex--;
+            my_background();
         }
     else if (jo_is_pad1_key_down(JO_KEY_L) && spriteIndex <= 0)
         {
             spriteIndex = IMG_MAX;
+            my_background();
         }
 }
 
@@ -65,10 +70,6 @@ void            my_background()
 
 void           my_draw(void)
     {
-        jo_tga_loader(&bg, JO_ROOT_DIR, filenames[spriteIndex], JO_COLOR_Transparent);
-        jo_set_background_sprite(&bg, 0, 0);
-        jo_free_img(&bg);
-
         jo_printf(0, 0, "Sprite Index:");
         jo_clear_screen_line(1);
         jo_printf(0, 1, "%d", spriteIndex);
