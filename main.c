@@ -27,7 +27,15 @@
 */
 #include <jo/jo.h>
 #define IMG_MAX 1
+#define frustrum_x 160
+//#define frustrum_xleft 160
+#define frustrum_y 120
+//#define frustrum_ydown 120
+#define frustrum_z 100
 int spriteIndex = 0;
+int x = 0;
+int y = 0;
+float z = 1;
 char * filenames[] = {"00.TGA", "01.TGA", "02.TGA", "03.TGA", "04.TGA", "05.TGA", "06.TGA", "07.TGA", "08.TGA", "09.TGA", "10.TGA", "11.TGA"};
 // char filenames[12][8] ={"00.TGA", "01.TGA", "02.TGA", "03.TGA", "04.TGA", "05.TGA", "06.TGA", "07.TGA", "08.TGA", "09.TGA", "10.TGA", "11.TGA"};
 jo_img      bg;
@@ -55,6 +63,41 @@ void            my_input()
             spriteIndex = IMG_MAX;
             my_background();
         }
+
+    if (jo_is_pad1_key_pressed(JO_KEY_UP) && y >= -frustrum_y)
+        {
+            y--;
+        }
+    else if (jo_is_pad1_key_pressed(JO_KEY_DOWN) && y <= frustrum_y)
+        {
+            y++;
+        }
+
+    if (jo_is_pad1_key_pressed(JO_KEY_LEFT) && x >= -frustrum_x)
+        {
+            x--;
+        }
+    else if (jo_is_pad1_key_pressed(JO_KEY_RIGHT) && x <= frustrum_x)
+        {
+            x++;
+        }
+
+    if (jo_is_pad1_key_pressed(JO_KEY_X /*|| JO_KEY_Y || JO_KEY_Z*/) && z <= frustrum_z)
+        {
+            z = +0.01;
+        }
+    else if (jo_is_pad1_key_pressed(JO_KEY_A /*|| JO_KEY_B || JO_KEY_C*/) && z >= -frustrum_z)
+        {
+            z = -0.01;
+        }
+    
+    if (jo_is_pad1_key_down(JO_KEY_START))
+        {
+            spriteIndex = 0;
+            x = 0;
+            y = 0;
+            z = 1;
+        }
 }
 
 void            my_background()
@@ -70,9 +113,16 @@ void            my_background()
 
 void           my_draw(void)
     {
+        jo_move_background(x, y);
+        jo_zoom_background(z);
+        
         jo_printf(0, 0, "Sprite Index:");
         jo_clear_screen_line(1);
+        jo_clear_screen_line(2);
+        jo_clear_screen_line(3);
         jo_printf(0, 1, "%d", spriteIndex);
+        jo_printf(0, 2, "Screen pos.: %d, %d", x, y);
+        jo_printf(0, 3, "Zoom: %d", z);
     }
 
 void			jo_main(void)
